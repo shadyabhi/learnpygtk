@@ -27,8 +27,12 @@ class Calculator:
         vbox.pack_start(self.entry_num1, True, True, 0)
         vbox.pack_start(self.entry_num2, True, True, 0)
 
-        #Creating the calculate and exit button
+        #Creating the result label
+        self.label_result = gtk.Label("Result is: ")
+        vbox.pack_start(self.label_result, True, True, 0)
 
+
+        #Creating the calculate and exit button
         hbox_buttons = gtk.HBox(True, 10)
         button_calculate = gtk.Button("Calculate")
         button_quit = gtk.Button("Quit")
@@ -47,6 +51,9 @@ class Calculator:
     
     def add_numbers(self, data=None):
         print "Now, adding of numbers should happen"
+        num1 = int(self.entry_num1.get_text())
+        num2 = int(self.entry_num2.get_text())
+        self.label_result.set_text(self.label_result.get_text()+str(num1+num2))
 
 def main():
     gtk.main()
