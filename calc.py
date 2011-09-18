@@ -13,8 +13,9 @@ class Calculator:
         self.window.set_title("Simply add the numbers")
         self.window.set_border_width(10)
         self.window.resize(300,100)
+        self.window.set_position(gtk.WIN_POS_CENTER)
         
-        vbox = gtk.VBox(True, 10)
+        vbox = gtk.VBox(False, 10)
         self.window.add(vbox)
 
         #Creating the two text labels
@@ -23,14 +24,18 @@ class Calculator:
 
         self.entry_num1.set_max_length(50)
         self.entry_num2.set_max_length(50)
+        self.entry_num1.connect("activate", self.add_numbers)
+        self.entry_num2.connect("activate", self.add_numbers)
 
         vbox.pack_start(self.entry_num1, True, True, 0)
         vbox.pack_start(self.entry_num2, True, True, 0)
 
         #Creating the result label
+        lalign = gtk.Alignment(0, 0, 0, 0)
         self.label_result = gtk.Label("Result is: ")
         self.label_result.set_justify(gtk.JUSTIFY_LEFT)
-        vbox.pack_start(self.label_result, False, False, 0)
+        lalign.add(self.label_result)
+        vbox.pack_start(lalign, False, False, 0)
 
 
         #Creating the calculate and exit button
