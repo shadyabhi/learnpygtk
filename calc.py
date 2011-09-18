@@ -12,7 +12,7 @@ class Calculator:
         self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
         self.window.set_title("Simply add the numbers")
         self.window.set_border_width(10)
-        self.window.resize(200,200)
+        self.window.resize(300,100)
         
         vbox = gtk.VBox(True, 10)
         self.window.add(vbox)
@@ -29,7 +29,8 @@ class Calculator:
 
         #Creating the result label
         self.label_result = gtk.Label("Result is: ")
-        vbox.pack_start(self.label_result, True, True, 0)
+        self.label_result.set_justify(gtk.JUSTIFY_LEFT)
+        vbox.pack_start(self.label_result, False, False, 0)
 
 
         #Creating the calculate and exit button
@@ -40,8 +41,8 @@ class Calculator:
         button_quit.connect("clicked", lambda wid: gtk.main_quit())
         button_calculate.connect("clicked", self.add_numbers)
 
-        hbox_buttons.pack_start(button_quit, True, True, 0)
         hbox_buttons.pack_start(button_calculate, True, True, 0)
+        hbox_buttons.pack_start(button_quit, True, True, 0)
         vbox.pack_start(hbox_buttons, True, True, 0)
         
         self.window.connect("destroy", lambda wid: gtk.main_quit())
@@ -50,10 +51,12 @@ class Calculator:
         self.window.show_all()
     
     def add_numbers(self, data=None):
-        print "Now, adding of numbers should happen"
-        num1 = int(self.entry_num1.get_text())
-        num2 = int(self.entry_num2.get_text())
-        self.label_result.set_text(self.label_result.get_text()+str(num1+num2))
+        try:
+            num1 = int(self.entry_num1.get_text())
+            num2 = int(self.entry_num2.get_text())
+        except ValueError:
+            self.label_result.set_text("Non integer values. Pls correct.")
+        self.label_result.set_text("Result is: "+str(num1+num2))
 
 def main():
     gtk.main()
